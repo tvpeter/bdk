@@ -23,7 +23,7 @@ fn measure_txid_check_cost() -> anyhow::Result<()> {
     for _ in 0..500 {
         match env.send(&addr, Amount::from_sat(1_000)) {
             Ok(txid) => txids.push(txid),
-            Err(_) => break, 
+            Err(_) => break,
         }
     }
     let n = txids.len();
@@ -48,9 +48,17 @@ fn measure_txid_check_cost() -> anyhow::Result<()> {
     let check = t.elapsed();
 
     println!("\n==== txid-check perf (n={n} mempool txs, localhost regtest) ====");
-    println!("get_raw_transaction : {rpc:?}  ({:.1} us/tx)", rpc.as_secs_f64() * 1e6 / n as f64);
-    println!("txid check          : {check:?}  ({:.3} us/tx)", check.as_secs_f64() * 1e6 / n as f64);
-    println!("check as % of fetch : {:.3}%  (mismatches={mismatches})",
-        check.as_secs_f64() / rpc.as_secs_f64() * 100.0);
+    println!(
+        "get_raw_transaction : {rpc:?}  ({:.1} us/tx)",
+        rpc.as_secs_f64() * 1e6 / n as f64
+    );
+    println!(
+        "txid check          : {check:?}  ({:.3} us/tx)",
+        check.as_secs_f64() * 1e6 / n as f64
+    );
+    println!(
+        "check as % of fetch : {:.3}%  (mismatches={mismatches})",
+        check.as_secs_f64() / rpc.as_secs_f64() * 100.0
+    );
     Ok(())
 }

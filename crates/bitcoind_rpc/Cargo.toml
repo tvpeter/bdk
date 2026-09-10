@@ -24,6 +24,7 @@ bdk_core = { path = "../core", version = "0.6.1", default-features = false }
 bdk_bitcoind_rpc = { path = "." }
 bdk_testenv = { path = "../testenv" }
 bdk_chain = { path = "../chain" }
+criterion = { version = "0.7" }
 
 [features]
 default = ["std"]
@@ -33,3 +34,7 @@ serde = ["bitcoin/serde", "bdk_core/serde"]
 [[example]]
 name = "filter_iter"
 required-features = ["std"]
+
+[[bench]]
+name = "txid_check"
+harness = false
